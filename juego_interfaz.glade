@@ -2,8 +2,10 @@
 <!-- Generated with glade 3.22.2 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
-  <object class="GtkWindow">
+  <object class="GtkWindow" id="menu_window">
     <property name="can_focus">False</property>
+    <property name="default_width">640</property>
+    <property name="default_height">480</property>
     <child type="titlebar">
       <placeholder/>
     </child>
@@ -30,6 +32,7 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
+            <signal name="clicked" handler="botonJugar" swapped="no"/>
           </object>
           <packing>
             <property name="expand">True</property>
@@ -43,6 +46,7 @@
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">True</property>
+            <signal name="clicked" handler="botonSalir" swapped="no"/>
           </object>
           <packing>
             <property name="expand">True</property>
@@ -68,8 +72,11 @@ Jorge Sancho</property>
       </object>
     </child>
   </object>
-  <object class="GtkWindow">
+  <object class="GtkWindow" id="juego_window">
     <property name="can_focus">False</property>
+    <property name="default_width">640</property>
+    <property name="default_height">480</property>
+    <property name="transient_for">menu_window</property>
     <child type="titlebar">
       <placeholder/>
     </child>
@@ -117,10 +124,10 @@ Jorge Sancho</property>
                 <property name="column_homogeneous">True</property>
                 <child>
                   <object class="GtkButton" id="boton_00">
-                    <property name="label" translatable="yes">Simbolo</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
+                    <signal name="clicked" handler="boton00" swapped="no"/>
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
@@ -129,10 +136,10 @@ Jorge Sancho</property>
                 </child>
                 <child>
                   <object class="GtkButton" id="boton_10">
-                    <property name="label" translatable="yes">Simbolo</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
+                    <signal name="clicked" handler="boton10" swapped="no"/>
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
@@ -141,10 +148,10 @@ Jorge Sancho</property>
                 </child>
                 <child>
                   <object class="GtkButton" id="boton_20">
-                    <property name="label" translatable="yes">Simbolo</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
+                    <signal name="clicked" handler="boton20" swapped="no"/>
                   </object>
                   <packing>
                     <property name="left_attach">0</property>
@@ -153,10 +160,10 @@ Jorge Sancho</property>
                 </child>
                 <child>
                   <object class="GtkButton" id="boton_01">
-                    <property name="label" translatable="yes">Simbolo</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
+                    <signal name="clicked" handler="boton01" swapped="no"/>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -165,10 +172,10 @@ Jorge Sancho</property>
                 </child>
                 <child>
                   <object class="GtkButton" id="boton_11">
-                    <property name="label" translatable="yes">Simbolo</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
+                    <signal name="clicked" handler="boton11" swapped="no"/>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -177,10 +184,10 @@ Jorge Sancho</property>
                 </child>
                 <child>
                   <object class="GtkButton" id="boton_21">
-                    <property name="label" translatable="yes">Simbolo</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
+                    <signal name="clicked" handler="boton21" swapped="no"/>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -189,10 +196,10 @@ Jorge Sancho</property>
                 </child>
                 <child>
                   <object class="GtkButton" id="boton_02">
-                    <property name="label" translatable="yes">Simbolo</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
+                    <signal name="clicked" handler="boton02" swapped="no"/>
                   </object>
                   <packing>
                     <property name="left_attach">2</property>
@@ -201,10 +208,10 @@ Jorge Sancho</property>
                 </child>
                 <child>
                   <object class="GtkButton" id="boton_12">
-                    <property name="label" translatable="yes">Simbolo</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
+                    <signal name="clicked" handler="boton12" swapped="no"/>
                   </object>
                   <packing>
                     <property name="left_attach">2</property>
@@ -213,10 +220,10 @@ Jorge Sancho</property>
                 </child>
                 <child>
                   <object class="GtkButton" id="boton_22">
-                    <property name="label" translatable="yes">Simbolo</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
+                    <signal name="clicked" handler="boton22" swapped="no"/>
                   </object>
                   <packing>
                     <property name="left_attach">2</property>
@@ -255,12 +262,13 @@ Jorge Sancho</property>
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkButton" id="boton_menu">
+              <object class="GtkButton" id="boton_volver">
                 <property name="label" translatable="yes">Volver
 al menú</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <signal name="clicked" handler="botonVolver" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -283,12 +291,13 @@ Eljugador 1 juega con X</property>
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="boton_jugar_denuevo">
+              <object class="GtkButton" id="boton_jugar_nuevo">
                 <property name="label" translatable="yes">Jugar de
 nuevo</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <signal name="clicked" handler="botonJugarNuevo" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
