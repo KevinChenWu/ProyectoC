@@ -1,114 +1,6 @@
 #include <stdio.h>
 #include <gtk/gtk.h>
 
-int funcion(){
-
-	char matriz[3][3], opc;
-	int i, j;
-
-	printf("Juego del gato!\n");
-
-
-	for(i=0; i<3; i++){
-		for(j=0; j<3; j++){
-			matriz[i][j]=' ';
-			printf("[%c]", matriz[i][j]);
-		}
-		printf("\n");
-	}
-
-	printf("\n\nPresione Y para jugar / N para salir: ");
-	scanf("%c", &opc);
-
-	int fila, col, ganador=0, turno=1;
-
-	if(opc == 'Y' || opc == 'y'){
-
-		do{
-			if(turno%2==1){
-				do{
-					printf("\nJugador 0: \n");
-					printf("Digite fila: ");
-					scanf("%d", &fila);
-					printf("Digite columna: ");
-					scanf("%d", &col);
-
-					if(matriz[fila][col] == 'x' || matriz[fila][col] == 'o' || fila > 2 || col > 2){
-						printf("\nCoordenadas no validas, pruebe otra vez.\n");
-					}
-				}while(matriz[fila][col] == 'x' || matriz[fila][col] == 'o' || fila > 2 || col > 2);
-
-				matriz[fila][col]='x';
-
-				// system("cls");
-				for(i=0; i<3; i++){
-					for(j=0; j<3; j++){
-						printf("[%c]", matriz[i][j]);
-					}
-					printf("\n");
-				}
-				turno++;
-			} else if(turno%2==0){
-				do{
-					printf("\nJugador 1: \n");
-					printf("Digite fila: ");
-					scanf("%d", &fila);
-					printf("Digite columna: ");
-					scanf("%d", &col);
-
-					if(matriz[fila][col] == 'x' || matriz[fila][col] == 'o' || fila > 2 || col > 2){
-						printf("\nCoordenadas no validas, pruebe otra vez.\n");
-					}
-				} while(matriz[fila][col] == 'x' || matriz[fila][col] == 'o' || fila > 2 || col > 2);
-
-				matriz[fila][col]='o';
-
-				// system("cls");
-				for(i=0; i<3; i++){
-					for(j=0; j<3; j++){
-						printf("[%c]", matriz[i][j]);
-					}
-					printf("\n");
-				}
-				turno++;
-			}
-
-			if(matriz[0][0] == 'x' && matriz[0][0] == matriz[0][1] && matriz[0][0] == matriz[0][2]
-			|| matriz[1][0] == 'x' && matriz[1][0] == matriz[1][1] && matriz[1][0] == matriz[1][2]
-			|| matriz[2][0] == 'x' && matriz[2][0] == matriz[2][1] && matriz[2][0] == matriz[2][2]
-
-			|| matriz[0][0] == 'x' && matriz[0][0] == matriz[1][0] && matriz[0][0] == matriz[2][0]
-			|| matriz[0][1] == 'x' && matriz[0][1] == matriz[1][1] && matriz[0][1] == matriz[2][1]
-			|| matriz[0][2] == 'x' && matriz[0][2] == matriz[1][2] && matriz[0][2] == matriz[2][2]
-
-			|| matriz[0][0] == 'x' && matriz[0][0] == matriz[1][1] && matriz[0][0] == matriz[2][2]
-			|| matriz[0][2] == 'x' && matriz[0][2] == matriz[1][1] && matriz[0][2] == matriz[2][0]){
-				ganador=1;
-				printf("\nFelicidades! Gano el jugador 1.\n");
-			}
-
-			if(matriz[0][0] == 'o' && matriz[0][0] == matriz[0][1] && matriz[0][0] == matriz[0][2]
-			|| matriz[1][0] == 'o' && matriz[1][0] == matriz[1][1] && matriz[1][0] == matriz[1][2]
-			|| matriz[2][0] == 'o' && matriz[2][0] == matriz[2][1] && matriz[2][0] == matriz[2][2]
-
-			|| matriz[0][0] == 'o' && matriz[0][0] == matriz[1][0] && matriz[0][0] == matriz[2][0]
-			|| matriz[0][1] == 'o' && matriz[0][1] == matriz[1][1] && matriz[0][1] == matriz[2][1]
-			|| matriz[0][2] == 'o' && matriz[0][2] == matriz[1][2] && matriz[0][2] == matriz[2][2]
-
-			|| matriz[0][0] == 'o' && matriz[0][0] == matriz[1][1] && matriz[0][0] == matriz[2][2]
-			|| matriz[0][2] == 'o' && matriz[0][2] == matriz[1][1] && matriz[0][2] == matriz[2][0]){
-				ganador=1;
-				printf("\nFelicidades! Gano el jugador 2.\n");
-			}
-
-		} while(ganador != 1);
-	} else {
-		//system("cls");
-		printf("\nDe todas formas no queria que jugaras.\n");
-	}
-
-	return 0;
-}
 
 // Variables globales.
 GtkBuilder *builder;
@@ -135,11 +27,65 @@ GtkWidget *boton_volver;
 El orden es 00, 01, 02, 10, 11, 12, 20, 21, 22. */
 static int presionado[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 
-// Matriz con las posiciones de x y o.
+// Matriz con las posiciones de X y O.
 static char *matriz[3][3];
 
 // Ve a cual jugador le toca jugar.
 static int turno = 0;
+
+// Indica cuando hay ganador
+static int hay_ganador = 0;
+
+// Indica el ganador
+static int ganador;
+
+// Indica cuando hay empate
+static int es_empate = 0;
+
+// Cuenta la cantidad de turnos
+static int contador = 0;
+
+// Función que analiza si alguien gana o no después de tocar los botones del gato
+int analiza_ganador(){
+	contador++;
+	if(turno == 1 && matriz[0][0] != NULL && matriz[0][0] == matriz[0][1] && matriz[0][0] == matriz[0][2]
+	|| turno == 1 && matriz[1][0] != NULL && matriz[1][0] == matriz[1][1] && matriz[1][0] == matriz[1][2]
+	|| turno == 1 && matriz[2][0] != NULL && matriz[2][0] == matriz[2][1] && matriz[2][0] == matriz[2][2]
+
+	|| turno == 1 && matriz[0][0] != NULL && matriz[0][0] == matriz[1][0] && matriz[0][0] == matriz[2][0]
+	|| turno == 1 && matriz[0][1] != NULL && matriz[0][1] == matriz[1][1] && matriz[0][1] == matriz[2][1]
+	|| turno == 1 && matriz[0][2] != NULL && matriz[0][2] == matriz[1][2] && matriz[0][2] == matriz[2][2]
+
+	|| turno == 1 && matriz[0][0] != NULL && matriz[0][0] == matriz[1][1] && matriz[0][0] == matriz[2][2]
+	|| turno == 1 && matriz[0][2] != NULL && matriz[0][2] == matriz[1][1] && matriz[0][2] == matriz[2][0]){
+		ganador=1;
+		hay_ganador=1;
+		es_empate=0;
+		printf("Ganó el 1\n");
+	}
+
+	else if(
+	turno == 0 && matriz[0][0] != NULL && matriz[0][0] == matriz[0][1] && matriz[0][0] == matriz[0][2]
+	|| turno == 0 && matriz[1][0] != NULL && matriz[1][0] == matriz[1][1] && matriz[1][0] == matriz[1][2]
+	|| turno == 0 && matriz[2][0] != NULL && matriz[2][0] == matriz[2][1] && matriz[2][0] == matriz[2][2]
+
+	|| turno == 0 && matriz[0][0] != NULL && matriz[0][0] == matriz[1][0] && matriz[0][0] == matriz[2][0]
+	|| turno == 0 && matriz[0][1] != NULL && matriz[0][1] == matriz[1][1] && matriz[0][1] == matriz[2][1]
+	|| turno == 0 && matriz[0][2] != NULL && matriz[0][2] == matriz[1][2] && matriz[0][2] == matriz[2][2]
+
+	|| turno == 0 && matriz[0][0] != NULL && matriz[0][0] == matriz[1][1] && matriz[0][0] == matriz[2][2]
+	|| turno == 0 && matriz[0][2] != NULL && matriz[0][2] == matriz[1][1] && matriz[0][2] == matriz[2][0]){
+		ganador=0;
+		hay_ganador=1;
+		es_empate=0;
+		printf("Ganó el 0\n");
+	}
+	else if (contador == 9) {
+		printf("Hay empate\n");
+		es_empate = 1;
+	}
+	return 0;
+}
 
 // Botones dentro del menú.
 void botonJugar(GtkButton *b) {
@@ -148,24 +94,27 @@ void botonJugar(GtkButton *b) {
 	gtk_widget_hide(menu_window);
 }
 
+// Cierra la ventana
 void botonSalir(GtkButton *b) {
 	g_print("Se apretó el botón salir\n");
 	gtk_widget_destroy(menu_window);
 }
 
-// Se coloca x u o al apretar uno de los botones del gato.
+// Se coloca X u O al apretar uno de los botones del gato.
 void accion_boton(int fila, int columna, GtkButton *b) {
-	if (presionado[fila][columna] == 0) {
+	if (presionado[fila][columna] == 0 && hay_ganador == 0 && es_empate == 0) {
 		g_print("Se presionó el botón %d%d\n", fila, columna);
 		if (turno == 0) {
-			matriz[fila][columna] = "o";
-			gtk_button_set_label(GTK_BUTTON(b), (const gchar*) "o");
+			matriz[fila][columna] = "O";
+			gtk_button_set_label(GTK_BUTTON(b), (const gchar*) "O");
 			turno = 1;
+			analiza_ganador();
 		}
 		else if (turno == 1) {
-			matriz[fila][columna] = "x";
-			gtk_button_set_label(GTK_BUTTON(b), (const gchar*) "x");
+			matriz[fila][columna] = "X";
+			gtk_button_set_label(GTK_BUTTON(b), (const gchar*) "X");
 			turno = 0;
+			analiza_ganador();
 		}
 		presionado[fila][columna] = 1;
 	}
@@ -233,6 +182,10 @@ void resetJuego(){
 			matriz[i][j] = NULL;
 		}
 	}
+	hay_ganador = 0;
+	ganador=2;
+	es_empate = 0;
+	contador = 0;
 }
 
 // Se apreta el botón volver a jugar.
