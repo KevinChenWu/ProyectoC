@@ -58,9 +58,9 @@ int analiza_ganador(){
 
 	|| turno == 0 && matriz[0][0] != NULL && matriz[0][0] == matriz[1][1] && matriz[0][0] == matriz[2][2]
 	|| turno == 0 && matriz[0][2] != NULL && matriz[0][2] == matriz[1][1] && matriz[0][2] == matriz[2][0]){
-		ganador=1;
-		hay_ganador=1;
-		es_empate=0;
+		ganador = 1;
+		hay_ganador = 1;
+		es_empate = 0;
 		printf("Ganó el 1\n");
 	}
 
@@ -75,9 +75,9 @@ int analiza_ganador(){
 
 	|| turno == 1 && matriz[0][0] != NULL && matriz[0][0] == matriz[1][1] && matriz[0][0] == matriz[2][2]
 	|| turno == 1 && matriz[0][2] != NULL && matriz[0][2] == matriz[1][1] && matriz[0][2] == matriz[2][0]){
-		ganador=0;
-		hay_ganador=1;
-		es_empate=0;
+		ganador = 0;
+		hay_ganador = 1;
+		es_empate = 0;
 		printf("Ganó el 0\n");
 	}
 	else if (contador == 9) {
@@ -183,7 +183,7 @@ void resetJuego(){
 		}
 	}
 	hay_ganador = 0;
-	ganador=2;
+	ganador = 2;
 	es_empate = 0;
 	contador = 0;
 }
