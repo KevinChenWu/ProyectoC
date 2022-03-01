@@ -48,24 +48,7 @@ static int contador = 0;
 // Función que analiza si alguien gana o no después de tocar los botones del gato
 int analiza_ganador(){
 	contador++;
-	if(turno == 1 && matriz[0][0] != NULL && matriz[0][0] == matriz[0][1] && matriz[0][0] == matriz[0][2]
-	|| turno == 1 && matriz[1][0] != NULL && matriz[1][0] == matriz[1][1] && matriz[1][0] == matriz[1][2]
-	|| turno == 1 && matriz[2][0] != NULL && matriz[2][0] == matriz[2][1] && matriz[2][0] == matriz[2][2]
-
-	|| turno == 1 && matriz[0][0] != NULL && matriz[0][0] == matriz[1][0] && matriz[0][0] == matriz[2][0]
-	|| turno == 1 && matriz[0][1] != NULL && matriz[0][1] == matriz[1][1] && matriz[0][1] == matriz[2][1]
-	|| turno == 1 && matriz[0][2] != NULL && matriz[0][2] == matriz[1][2] && matriz[0][2] == matriz[2][2]
-
-	|| turno == 1 && matriz[0][0] != NULL && matriz[0][0] == matriz[1][1] && matriz[0][0] == matriz[2][2]
-	|| turno == 1 && matriz[0][2] != NULL && matriz[0][2] == matriz[1][1] && matriz[0][2] == matriz[2][0]){
-		ganador=1;
-		hay_ganador=1;
-		es_empate=0;
-		printf("Ganó el 1\n");
-	}
-
-	else if(
-	turno == 0 && matriz[0][0] != NULL && matriz[0][0] == matriz[0][1] && matriz[0][0] == matriz[0][2]
+	if(turno == 0 && matriz[0][0] != NULL && matriz[0][0] == matriz[0][1] && matriz[0][0] == matriz[0][2]
 	|| turno == 0 && matriz[1][0] != NULL && matriz[1][0] == matriz[1][1] && matriz[1][0] == matriz[1][2]
 	|| turno == 0 && matriz[2][0] != NULL && matriz[2][0] == matriz[2][1] && matriz[2][0] == matriz[2][2]
 
@@ -75,6 +58,23 @@ int analiza_ganador(){
 
 	|| turno == 0 && matriz[0][0] != NULL && matriz[0][0] == matriz[1][1] && matriz[0][0] == matriz[2][2]
 	|| turno == 0 && matriz[0][2] != NULL && matriz[0][2] == matriz[1][1] && matriz[0][2] == matriz[2][0]){
+		ganador=1;
+		hay_ganador=1;
+		es_empate=0;
+		printf("Ganó el 1\n");
+	}
+
+	else if(
+	turno == 1 && matriz[0][0] != NULL && matriz[0][0] == matriz[0][1] && matriz[0][0] == matriz[0][2]
+	|| turno == 1 && matriz[1][0] != NULL && matriz[1][0] == matriz[1][1] && matriz[1][0] == matriz[1][2]
+	|| turno == 1 && matriz[2][0] != NULL && matriz[2][0] == matriz[2][1] && matriz[2][0] == matriz[2][2]
+
+	|| turno == 1 && matriz[0][0] != NULL && matriz[0][0] == matriz[1][0] && matriz[0][0] == matriz[2][0]
+	|| turno == 1 && matriz[0][1] != NULL && matriz[0][1] == matriz[1][1] && matriz[0][1] == matriz[2][1]
+	|| turno == 1 && matriz[0][2] != NULL && matriz[0][2] == matriz[1][2] && matriz[0][2] == matriz[2][2]
+
+	|| turno == 1 && matriz[0][0] != NULL && matriz[0][0] == matriz[1][1] && matriz[0][0] == matriz[2][2]
+	|| turno == 1 && matriz[0][2] != NULL && matriz[0][2] == matriz[1][1] && matriz[0][2] == matriz[2][0]){
 		ganador=0;
 		hay_ganador=1;
 		es_empate=0;
