@@ -86,10 +86,10 @@ Jorge Sancho</property>
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkLabel" id="texto_ganar">
+          <object class="GtkLabel" id="texto_turno">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="label" translatable="yes">Aún no hay ganador</property>
+            <property name="label" translatable="yes">Turno: jugador 0</property>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -105,10 +105,7 @@ Jorge Sancho</property>
               <object class="GtkLabel" id="texto_error">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes"> La posición
-  x y 
- ya fue usada 
- Escoja otra </property>
+                <property name="label" translatable="yes">                                        </property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -241,8 +238,7 @@ Jorge Sancho</property>
               <object class="GtkLabel" id="texto_posicion">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes"> Se puso O 
- en x y </property>
+                <property name="label" translatable="yes">                                        </property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -282,7 +278,7 @@ al menú</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Instrucciones:
 El jugador 0 empieza y juega con O
-Eljugador 1 juega con X</property>
+El jugador 1 juega con X</property>
               </object>
               <packing>
                 <property name="expand">True</property>

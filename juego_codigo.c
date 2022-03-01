@@ -7,6 +7,8 @@ GtkBuilder *builder;
 GtkWidget *menu_window;
 GtkWidget *juego_window;
 
+
+
 GtkWidget *boton_jugar;
 GtkWidget *boton_salir;
 
@@ -22,6 +24,9 @@ GtkWidget *boton_22;
 
 GtkWidget *boton_jugar_nuevo;
 GtkWidget *boton_volver;
+
+GtkWidget *texto_turno;
+
 
 /* Se ve los botones ya presionados.
 El orden es 00, 01, 02, 10, 11, 12, 20, 21, 22. */
@@ -62,6 +67,8 @@ int analiza_ganador(){
 		hay_ganador = 1;
 		es_empate = 0;
 		printf("Ganó el 1\n");
+		gtk_label_set_text(GTK_LABEL(texto_turno), (const gchar*) "Ganó el jugador 1");
+
 	}
 
 	else if(
@@ -79,9 +86,11 @@ int analiza_ganador(){
 		hay_ganador = 1;
 		es_empate = 0;
 		printf("Ganó el 0\n");
+		gtk_label_set_text(GTK_LABEL(texto_turno), (const gchar*) "Ganó el jugador 0");
 	}
 	else if (contador == 9) {
 		printf("Hay empate\n");
+		gtk_label_set_text(GTK_LABEL(texto_turno), (const gchar*) "Empate");
 		es_empate = 1;
 	}
 	return 0;
@@ -105,12 +114,14 @@ void accion_boton(int fila, int columna, GtkButton *b) {
 	if (presionado[fila][columna] == 0 && hay_ganador == 0 && es_empate == 0) {
 		g_print("Se presionó el botón %d%d\n", fila, columna);
 		if (turno == 0) {
+			gtk_label_set_text(GTK_LABEL(texto_turno), (const gchar*) "Turno: jugador 1");
 			matriz[fila][columna] = "O";
 			gtk_button_set_label(GTK_BUTTON(b), (const gchar*) "O");
 			turno = 1;
 			analiza_ganador();
 		}
 		else if (turno == 1) {
+			gtk_label_set_text(GTK_LABEL(texto_turno), (const gchar*) "Turno: jugador 0");
 			matriz[fila][columna] = "X";
 			gtk_button_set_label(GTK_BUTTON(b), (const gchar*) "X");
 			turno = 0;
@@ -176,6 +187,7 @@ void resetJuego(){
 	gtk_button_set_label(GTK_BUTTON(boton_20), (const gchar*) "");
 	gtk_button_set_label(GTK_BUTTON(boton_21), (const gchar*) "");
 	gtk_button_set_label(GTK_BUTTON(boton_22), (const gchar*) "");
+	gtk_label_set_text(GTK_LABEL(texto_turno), (const gchar*) "Turno: jugador 0");
 	for(i=0; i<3; i++){
 		for(j=0; j<3; j++){
 			presionado[i][j] = 0;
@@ -217,9 +229,12 @@ int main(int argc, char* argv[]){
     gtk_builder_get_object(builder, "juego_window")
   );
 
+
   g_signal_connect(menu_window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
 
 	g_signal_connect(juego_window, "destroy", G_CALLBACK(gtk_main_quit), NULL);
+
+
 
 	// Para utilizar todas las señales.
 	gtk_builder_connect_signals(builder, NULL);
@@ -274,6 +289,11 @@ int main(int argc, char* argv[]){
 
 	boton_volver = GTK_WIDGET(
     gtk_builder_get_object(builder, "boton_volver")
+  );
+
+
+	texto_turno = GTK_WIDGET(
+    gtk_builder_get_object(builder, "texto_turno")
   );
 
   gtk_widget_show_all(menu_window);
