@@ -66,7 +66,6 @@ int analiza_ganador(){
 		ganador = 1;
 		hay_ganador = 1;
 		es_empate = 0;
-		printf("Ganó el 1\n");
 		gtk_label_set_text(GTK_LABEL(texto_turno), (const gchar*) "Ganó el jugador 1");
 
 	}
@@ -85,11 +84,9 @@ int analiza_ganador(){
 		ganador = 0;
 		hay_ganador = 1;
 		es_empate = 0;
-		printf("Ganó el 0\n");
 		gtk_label_set_text(GTK_LABEL(texto_turno), (const gchar*) "Ganó el jugador 0");
 	}
 	else if (contador == 9) {
-		printf("Hay empate\n");
 		gtk_label_set_text(GTK_LABEL(texto_turno), (const gchar*) "Empate");
 		es_empate = 1;
 	}
@@ -98,21 +95,18 @@ int analiza_ganador(){
 
 // Botones dentro del menú.
 void botonJugar(GtkButton *b) {
-	g_print("Se apretó el botón jugar\n");
 	gtk_widget_show(juego_window);
 	gtk_widget_hide(menu_window);
 }
 
 // Cierra la ventana
 void botonSalir(GtkButton *b) {
-	g_print("Se apretó el botón salir\n");
 	gtk_widget_destroy(menu_window);
 }
 
 // Se coloca X u O al apretar uno de los botones del gato.
 void accion_boton(int fila, int columna, GtkButton *b) {
 	if (presionado[fila][columna] == 0 && hay_ganador == 0 && es_empate == 0) {
-		g_print("Se presionó el botón %d%d\n", fila, columna);
 		if (turno == 0) {
 			gtk_label_set_text(GTK_LABEL(texto_turno), (const gchar*) "Turno: jugador 1");
 			matriz[fila][columna] = "O";
@@ -129,10 +123,6 @@ void accion_boton(int fila, int columna, GtkButton *b) {
 		}
 		presionado[fila][columna] = 1;
 	}
-	else {
-		g_print("El botón ya fue presionado\n");
-	}
-	g_print("%s\n", matriz[fila][columna]);
 }
 
 
